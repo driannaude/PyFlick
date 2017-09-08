@@ -10,6 +10,9 @@ import requests
 import os
 from definitions import AUTH_FILE_PATH
 from classes.exception_handler.custom import AuthException
+from classes.util.util import Util
+
+util = Util()
 
 class FlickAuth(object):
     """
@@ -29,18 +32,12 @@ class FlickAuth(object):
         """
         Check for an active session and return it if it exists
         """
-        if not os.path.exists(AUTH_FILE_PATH):
+        token = util.getJSONFile(AUTH_FILE_PATH)
+        if not token:
             return False
-        with open(AUTH_FILE_PATH) as data:
-            token = {};
-            try:
-                token = json.load(data)
-            except ValueError, e:
-                return False
-            now = int(time.time())
-            if now < token["expires_at"]:
-                return token
-            return False
+        now = int(time.time())
+        if now < token["expires_at"]:
+            return token
 
     def __saveAccessTokenToFile(self, data):
         """
@@ -49,8 +46,7 @@ class FlickAuth(object):
         data["authenticated_at"] = int(time.time())
         # FYI: Tokens appear to expire in 2 months/60 days
         data["expires_at"] = data["authenticated_at"] + data["expires_in"]
-        with open(AUTH_FILE_PATH, 'w') as outfile:
-            json.dump(data, outfile)
+        return util.saveJSONFile(AUTH_FILE_PATH, data)
 
     def __authenticatedFlick(self, username, password, client_id, client_secret):
         """

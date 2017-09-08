@@ -1,5 +1,6 @@
 src/config.json
 src/auth.json
+src/pricing.json
 pyFlick/
 dist/
 build/

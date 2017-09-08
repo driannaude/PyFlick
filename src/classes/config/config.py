@@ -3,8 +3,11 @@ Configuration Module
 """
 #!/usr/bin/env python
 # encoding: utf-8
-import json
+
 from definitions import CONFIG_PATH
+from classes.util.util import Util
+
+util = Util()
 
 class Config(object):
     """
@@ -17,14 +20,10 @@ class Config(object):
         """
         Retrieve config from file
         """
-        with open(CONFIG_PATH) as data:
-            config = json.load(data)
-            return config
+        return util.getJSONFile(CONFIG_PATH)
 
     def save(self, config_object):
         """
         Save config to file
         """
-        with open(CONFIG_PATH, 'w') as outfile:
-            json.dump(config_object, outfile)
-            return True
+        return util.saveJSONFile(CONFIG_PATH, config_object)

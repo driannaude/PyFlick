@@ -1,9 +1,18 @@
 # PyFlick
-A quick and dirty Python API for Flick Electric
+A quick and dirty Python API for [Flick Electric](https://flickelectric.co.nz).
+
+**Don't be evil** - This library has been designed to minimize hitting the Flick API as much as possible by caching data in files for later retrieval. Be a #cleverflickster and make sure you are respectful and responsible when consuming this API.
 
 ### Getting Started
-You will need to create a JSON config file in `src/` called config.json that contains your username, password, client_id and client_secret:
-You can use the client id/secret below, or roll your own (somehow?)
+
+First things first, clone the repo:
+
+```bash
+git clone git@github.com:driannaude/PyFlick.git
+```
+
+You will need to create a JSON config file in `src/` called config.json that contains your `username`, `password`, `client_id` and `client_secret`:
+You can use the client id/secret below, or find your own by sniffing the request from your phone/app with any reputable MITM tool
 ```json
 {
   "client_id": "le37iwi3qctbduh39fvnpevt1m2uuvz",
@@ -22,15 +31,20 @@ api = FlickApi(config["username"], config["password"], config["client_id"], conf
 
 Alternatively, you can manually pass in your credentials as arguments to the FlickAPI class init method.
 
-### Get the Price
+### Usage
 
-You can fetch the price by calling the `getPrice()` method:
+The following methods are available:
 
-```python
-# Using the api variable from above
-price = api.getPrice()
-```
+|Method |Arguments |Returns |
+|-------|----------|:--------|
+|`getRawData()`| `None`| `Returns` Raw `JSON` object ([see below](#raw-json-data)) |
+|`getPricePerKwh()`| `None`| `Returns` Price Per KwH |
+|`getPriceBreakdown()`| `None`| `Returns` dict with Charges and price|
+|`getLastUpdateTime()`| `Bool isEpoch` | `Returns` last updated timestamp, pass `True` value for `isEpoch` to get UTC seconds since Epoch |
+|`getNextUpdateTime()`| `Bool isEpoch` | `Returns` next update timestamp, pass `True` value for `isEpoch` to get UTC seconds since Epoch | |
 
+
+### Raw JSON Data
 this will return a price object that looks a little like this:
 
 ```json
@@ -63,8 +77,6 @@ this will return a price object that looks a little like this:
   }
 }
 ```
-
-Do with it what you will.
 
 ### Disclaimer/Legal
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
