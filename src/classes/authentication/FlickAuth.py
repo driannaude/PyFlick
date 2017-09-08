@@ -7,6 +7,7 @@ Authentication Module
 import json
 import time
 import requests
+import os
 from definitions import AUTH_FILE_PATH
 from classes.exception_handler.custom import AuthException
 
@@ -28,8 +29,14 @@ class FlickAuth(object):
         """
         Check for an active session and return it if it exists
         """
+        if not os.path.exists(AUTH_FILE_PATH):
+            return False
         with open(AUTH_FILE_PATH) as data:
-            token = json.load(data)
+            token = {};
+            try:
+                token = json.load(data)
+            except ValueError, e:
+                return False
             now = int(time.time())
             if now < token["expires_at"]:
                 return token

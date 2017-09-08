@@ -12,6 +12,7 @@ def main():
     config = Config().get()
     api = FlickApi(config["username"], config["password"], config["client_id"], config["client_secret"])
     price = api.getPrice()
+    print price
 
 if __name__ == "__main__":
     main()
