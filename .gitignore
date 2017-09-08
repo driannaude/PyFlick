@@ -1,0 +1,6 @@
+src/config.json
+src/auth.json
+pyFlick/
+dist/
+build/
+*.pyc

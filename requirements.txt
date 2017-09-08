@@ -1,0 +1,12 @@
+certifi==2017.7.27.1
+chardet==3.0.4
+get==0.0.0
+idna==2.6
+post==0.0.0
+public==0.0.0
+query-string==0.0.0
+request==0.0.0
+requests==2.18.4
+requirements==0.1
+setupfiles==0.0.50
+urllib3==1.22
