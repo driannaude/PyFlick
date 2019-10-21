@@ -9,4 +9,4 @@ request==0.0.0
 requests==2.18.4
 requirements==0.1
 setupfiles==0.0.50
-urllib3==1.22
+urllib3==1.24.2
